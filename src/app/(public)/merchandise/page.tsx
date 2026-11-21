@@ -1,0 +1,36 @@
+import type { Metadata } from 'next';
+import { dataService } from '@/services/storage';
+import MerchandiseClient from '@/components/merchandise/MerchandiseClient';
+import { ShoppingBag, Sparkles } from 'lucide-react';
+
+export const metadata: Metadata = {
+  title: 'Katalog Merchandise Resmi',
+  description:
+    'Katalog merchandise resmi IMMAPA Telkom University: Jersey futsal, T-shirt etnik Cenderawasih, hoodie, dan aksesoris.',
+};
+
+export default async function MerchandisePage() {
+  const products = await dataService.getProducts();
+  const contact = await dataService.getContact();
+
+  return (
+    <div className="py-12 sm:py-16">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="text-center max-w-3xl mx-auto mb-14">
+          <div className="inline-flex items-center gap-2 rounded-full bg-accent-blue/60 px-4 py-1.5 text-xs font-semibold text-navy mb-4">
+            <Sparkles size={14} className="text-cenderawasih-pink" />
+            <span>OFFICIAL MERCHANDISE</span>
+          </div>
+          <h1 className="text-4xl sm:text-5xl font-extrabold text-navy tracking-tight mb-4">
+            Katalog Merchandise <span className="text-gradient-cenderawasih">IMMAPA</span>
+          </h1>
+          <p className="text-base sm:text-lg text-gray-600 leading-relaxed">
+            Miliki atribut kebanggaan dengan motif etnik khas Indonesia Timur dan dukung program kerja organisasi.
+          </p>
+        </div>
+
+        <MerchandiseClient products={products} contact={contact} />
+      </div>
+    </div>
+  );
+}

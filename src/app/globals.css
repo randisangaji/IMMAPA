@@ -1,0 +1,81 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-navy: #191F40;
+  --color-navy-dark: #0F142A;
+  --color-cenderawasih-pink: #D84C83;
+  --color-cenderawasih-gold: #DCC66B;
+  --color-soft-blue: #E8EEF8;
+  --color-dark-text: #18213A;
+  --color-light-gray: #F7F9FC;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    color: var(--color-dark-text);
+    background-color: #FFFFFF;
+  }
+
+  body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* Accessibility & reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* Custom subtle scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #F7F9FC;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #CBD5E1;
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #94A3B8;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-navy px-6 py-3 text-sm font-semibold text-white shadow-md shadow-navy/15 transition-all duration-300 hover:bg-navy-800 hover:shadow-lg hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy;
+  }
+
+  .btn-accent {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-cenderawasih-pink px-6 py-3 text-sm font-semibold text-white shadow-md shadow-cenderawasih-pink/20 transition-all duration-300 hover:bg-[#c43e74] hover:shadow-lg hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cenderawasih-pink;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl border border-navy/20 bg-white px-6 py-3 text-sm font-semibold text-navy transition-all duration-300 hover:border-navy hover:bg-accent-blue/40 hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy;
+  }
+
+  .glass-card {
+    @apply rounded-2xl border border-gray-100 bg-white/90 p-6 shadow-sm backdrop-blur-md transition-all duration-300 hover:shadow-md hover:border-accent-blue;
+  }
+
+  .gradient-gold-pink {
+    background: linear-gradient(135deg, #D84C83 0%, #DCC66B 100%);
+  }
+
+  .text-gradient-cenderawasih {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, #D84C83 0%, #DCC66B 100%);
+  }
+}

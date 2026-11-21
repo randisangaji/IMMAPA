@@ -1,0 +1,206 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  SUPER_ADMIN
+  ADMIN
+  EDITOR
+}
+
+enum RecruitmentStatus {
+  OPEN
+  COMING_SOON
+  CLOSED
+}
+
+enum ProgramStatus {
+  UPCOMING
+  ONGOING
+  COMPLETED
+}
+
+enum PartnershipCategory {
+  EVENT_PARTNER
+  MEDIA_PARTNER
+  SPONSORSHIP
+  COMMUNITY_COLLABORATION
+  CULTURAL_COLLABORATION
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String
+  password  String
+  role      Role     @default(ADMIN)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model OrganizationProfile {
+  id               String   @id @default(cuid())
+  name             String   @default("IMMAPA Telkom University")
+  fullName         String   @default("Ikatan Mahasiswa Maluku, Papua & NTT Telkom University")
+  tagline          String   @default("Kitorang Bisa Kitorang Basodara")
+  foundedYear      Int      @default(2017)
+  originLocation   String   @default("Telkom University, Bandung, Jawa Barat")
+  aboutIntro       String
+  backgroundStory  String
+  vision           String
+  missions         String[] // Array of mission points
+  values           Json     // Array of { title, desc, icon }
+  benefits         String[] // Benefits of joining
+  logoUrl          String   @default("/logos/logo-immapa.png")
+  profileVideoUrl  String?  @default("https://www.youtube.com/embed/C7jLAdVjVRE")
+  updatedAt        DateTime @updatedAt
+}
+
+model Cabinet {
+  id              String          @id @default(cuid())
+  year            Int             @unique // e.g. 2024
+  periodName      String          // e.g. "2024/2025"
+  cabinetName     String          // e.g. "Kabinet Cenderawasih Berjaya"
+  cabinetLogoUrl  String?
+  philosophy      String?
+  logoMeaning     String?
+  chairperson     String          // Nama Ketua
+  viceChairperson String?         // Nama Wakil Ketua
+  description     String
+  isActive        Boolean         @default(false)
+  members         CabinetMember[]
+  divisions       Division[]
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+}
+
+model Division {
+  id          String          @id @default(cuid())
+  name        String
+  cabinetId   String
+  cabinet     Cabinet         @relation(fields: [cabinetId], references: [id], onDelete: Cascade)
+  description String?
+  members     CabinetMember[]
+}
+
+model CabinetMember {
+  id         String    @id @default(cuid())
+  name       String
+  role       String    // e.g. "Koordinator", "Anggota"
+  photoUrl   String?
+  divisionId String?
+  division   Division? @relation(fields: [divisionId], references: [id], onDelete: SetNull)
+  cabinetId  String
+  cabinet    Cabinet   @relation(fields: [cabinetId], references: [id], onDelete: Cascade)
+}
+
+model Program {
+  id                  String         @id @default(cuid())
+  title               String
+  slug                String         @unique
+  category            String         // e.g. "Kebudayaan", "Olahraga", "Pengabdian", "Akademik"
+  description         String
+  objective           String
+  responsibleDivision String
+  activityDate        DateTime?
+  location            String?
+  coverImageUrl       String
+  status              ProgramStatus  @default(UPCOMING)
+  isFeatured          Boolean        @default(false)
+  media               ProgramMedia[]
+  createdAt           DateTime       @default(now())
+  updatedAt           DateTime       @updatedAt
+}
+
+model ProgramMedia {
+  id        String   @id @default(cuid())
+  programId String
+  program   Program  @relation(fields: [programId], references: [id], onDelete: Cascade)
+  type      String   // "IMAGE" or "VIDEO"
+  url       String
+  caption   String?
+  createdAt DateTime @default(now())
+}
+
+model GalleryItem {
+  id          String   @id @default(cuid())
+  title       String
+  category    String   // "Kebudayaan", "Olahraga", "Pengabdian", "Keluarga"
+  year        Int
+  type        String   @default("IMAGE") // "IMAGE" or "VIDEO"
+  url         String
+  thumbnail   String?
+  description String?
+  createdAt   DateTime @default(now())
+}
+
+model Product {
+  id          String         @id @default(cuid())
+  name        String
+  slug        String         @unique
+  category    String         // "Jersey Futsal", "T-Shirt", "Jaket", "Aksesoris"
+  description String
+  price       Int?           // Optional, null if unconfirmed
+  sizes       String[]       // ["S", "M", "L", "XL", "XXL"]
+  isAvailable Boolean        @default(true)
+  images      ProductImage[]
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+}
+
+model ProductImage {
+  id        String  @id @default(cuid())
+  productId String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  url       String
+  isPrimary Boolean @default(false)
+}
+
+model Recruitment {
+  id               String            @id @default(cuid())
+  status           RecruitmentStatus @default(COMING_SOON)
+  period           String?           // e.g. "Ganjil 2024/2025"
+  announcement     String
+  requirements     String[]
+  timeline         Json              // Array of { stage, date }
+  registrationUrl  String?
+  contactPerson    String?
+  updatedAt        DateTime          @updatedAt
+}
+
+model PartnershipInquiry {
+  id            String              @id @default(cuid())
+  companyName   String
+  contactPerson String
+  email         String
+  phone         String?
+  category      PartnershipCategory
+  message       String
+  isReviewed    Boolean             @default(false)
+  createdAt     DateTime            @default(now())
+}
+
+model Announcement {
+  id        String   @id @default(cuid())
+  title     String
+  content   String
+  author    String   @default("Pengurus IMMAPA")
+  isPinned  Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model ContactInfo {
+  id               String   @id @default(cuid())
+  email            String   @default("immapa@telkomuniversity.ac.id")
+  whatsapp         String?
+  instagram        String   @default("https://www.instagram.com/immapa_tu/")
+  tiktok           String?
+  youtube          String?
+  guidebookFileUrl String?
+  updatedAt        DateTime @updatedAt
+}

@@ -52,7 +52,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="id">
-      <body className="min-h-screen bg-white text-accent-dark antialiased">
+      <body className="min-h-screen bg-white text-navy antialiased selection:bg-navy/10 selection:text-navy">
         {children}
       </body>
     </html>

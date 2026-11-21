@@ -5,13 +5,11 @@ import {
   Handshake,
   Sparkles,
   Megaphone,
-  Gift,
   Users,
   Compass,
   FileText,
   Mail,
   Instagram,
-  CheckCircle2,
 } from 'lucide-react';
 
 export const metadata: Metadata = {
@@ -47,18 +45,18 @@ export default async function CollaborationPage() {
   const contact = await dataService.getContact();
 
   return (
-    <div className="py-12 sm:py-16">
+    <div className="py-16 sm:py-20 bg-white text-navy">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-16">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto">
-          <div className="inline-flex items-center gap-2 rounded-full bg-accent-blue/60 px-4 py-1.5 text-xs font-semibold text-navy mb-4">
-            <Sparkles size={14} className="text-cenderawasih-pink" />
+          <div className="badge-navy mb-4">
+            <Sparkles size={14} />
             <span>KEMITRAAN RESMI</span>
           </div>
-          <h1 className="text-4xl sm:text-5xl font-extrabold text-navy tracking-tight mb-4">
-            Kolaborasi Bersama <span className="text-gradient-cenderawasih">IMMAPA</span>
+          <h1 className="text-4xl sm:text-5xl font-black text-navy tracking-tight mb-4">
+            Kolaborasi Bersama <span className="text-gradient-navy">IMMAPA</span>
           </h1>
-          <p className="text-base sm:text-lg text-gray-600 leading-relaxed">
+          <p className="text-base sm:text-lg text-soft-600 leading-relaxed">
             Membuka pintu sinergi positif melalui event partnership, media partner, sponsorship kegiatan budaya, dan program pengabdian masyarakat.
           </p>
         </div>
@@ -70,48 +68,50 @@ export default async function CollaborationPage() {
             return (
               <div
                 key={idx}
-                className="rounded-3xl border border-gray-100 bg-white p-7 shadow-xs hover:border-cenderawasih-pink/30 hover:shadow-md transition-all space-y-3"
+                className="rounded-2xl border border-soft-300 bg-white p-7 shadow-card hover:shadow-card-hover hover:border-navy/20 transition-all space-y-3 group"
               >
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-accent-blue text-navy">
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-navy/10 border border-navy/15 text-navy group-hover:bg-navy group-hover:text-white transition-colors">
                   <Icon size={22} />
                 </div>
-                <h3 className="text-lg font-bold text-navy">{b.title}</h3>
-                <p className="text-xs text-gray-600 leading-relaxed">{b.desc}</p>
+                <h3 className="text-lg font-bold text-navy group-hover:text-navy-light transition-colors">{b.title}</h3>
+                <p className="text-xs text-soft-500 leading-relaxed">{b.desc}</p>
               </div>
             );
           })}
         </div>
 
-        {/* Guidebook & Direct Contact Banner */}
-        <div className="rounded-3xl bg-navy p-8 sm:p-10 text-white">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        {/* Guidebook Banner */}
+        <div className="rounded-2xl bg-soft-100 border border-soft-300 p-8 sm:p-10 text-navy shadow-elevated relative overflow-hidden">
+          <div className="pointer-events-none absolute -left-20 -bottom-20 h-64 w-64 rounded-full bg-navy/5 blur-[120px]" />
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
             <div className="lg:col-span-8 space-y-3">
-              <span className="text-xs font-bold text-cenderawasih-gold uppercase tracking-wider">
+              <span className="text-xs font-bold text-navy-muted uppercase tracking-wider">
                 GUIDEBOOK KEMITRAAN
               </span>
-              <h2 className="text-2xl sm:text-3xl font-extrabold">
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-navy">
                 Buku Panduan & Proposal Kerjasama
               </h2>
-              <p className="text-sm text-gray-300 leading-relaxed">
+              <p className="text-sm text-soft-600 leading-relaxed">
                 Pelajari skema paket sponsorship, ketentuan media partner, dan syarat kolaborasi resmi kami.
               </p>
-              <div className="flex flex-wrap items-center gap-4 pt-2 text-xs text-gray-300">
+              <div className="flex flex-wrap items-center gap-4 pt-2 text-xs text-soft-600">
                 <span className="flex items-center gap-1.5">
-                  <Mail size={14} className="text-cenderawasih-pink" />
+                  <Mail size={14} className="text-navy" />
                   {contact.email}
                 </span>
                 <span className="flex items-center gap-1.5">
-                  <Instagram size={14} className="text-cenderawasih-pink" />
+                  <Instagram size={14} className="text-navy" />
                   @immapa_tu
                 </span>
               </div>
             </div>
 
             <div className="lg:col-span-4 flex justify-start lg:justify-end">
-              <div className="rounded-2xl bg-white/10 p-5 text-center border border-white/10 w-full sm:w-auto">
-                <FileText size={32} className="mx-auto text-cenderawasih-gold mb-2" />
-                <p className="text-xs font-bold text-white mb-2">Buku Panduan IMMAPA</p>
-                <span className="inline-block rounded-lg bg-white/20 px-3 py-1.5 text-[11px] font-semibold text-gray-200">
+              <div className="rounded-xl bg-white p-6 text-center border border-soft-300 w-full sm:w-auto shadow-card">
+                <FileText size={32} className="mx-auto text-navy mb-2" />
+                <p className="text-xs font-bold text-navy mb-2">Buku Panduan IMMAPA</p>
+                <span className="inline-block rounded-xl bg-soft-200 border border-soft-300 px-3 py-1.5 text-[11px] font-semibold text-soft-600">
                   Unduh Guidebook (Tersedia via Admin)
                 </span>
               </div>

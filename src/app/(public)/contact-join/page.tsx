@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import { dataService } from '@/services/storage';
 import {
-  Users,
   Sparkles,
   Calendar,
   CheckCircle2,
@@ -10,7 +9,6 @@ import {
   Mail,
   Youtube,
   ExternalLink,
-  MessageCircle,
 } from 'lucide-react';
 
 export const metadata: Metadata = {
@@ -47,34 +45,34 @@ export default async function ContactJoinPage() {
   const contact = await dataService.getContact();
 
   return (
-    <div className="py-12 sm:py-16">
+    <div className="py-16 sm:py-20 bg-soft-100 text-navy">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-16">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto">
-          <div className="inline-flex items-center gap-2 rounded-full bg-accent-blue/60 px-4 py-1.5 text-xs font-semibold text-navy mb-4">
-            <Sparkles size={14} className="text-cenderawasih-pink" />
+          <div className="badge-navy mb-4">
+            <Sparkles size={14} />
             <span>PENDAFTARAN & KONTAK RESMI</span>
           </div>
-          <h1 className="text-4xl sm:text-5xl font-extrabold text-navy tracking-tight mb-4">
-            Bergabung Bersama <span className="text-gradient-cenderawasih">Keluarga IMMAPA</span>
+          <h1 className="text-4xl sm:text-5xl font-black text-navy tracking-tight mb-4">
+            Bergabung Bersama <span className="text-gradient-navy">Keluarga IMMAPA</span>
           </h1>
-          <p className="text-base sm:text-lg text-gray-600 leading-relaxed">
+          <p className="text-base sm:text-lg text-soft-600 leading-relaxed">
             Temukan rumah kedua kamu di Telkom University. Mari merajut persaudaraan dan melestarikan budaya Indonesia Timur bersama.
           </p>
         </div>
 
         {/* Recruitment Status Card */}
-        <div className="rounded-3xl border border-gray-100 bg-white p-8 sm:p-12 shadow-sm">
+        <div className="rounded-2xl border border-soft-300 bg-white p-8 sm:p-12 shadow-elevated">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-            <div className="lg:col-span-8 space-y-4">
+            <div className="lg:col-span-8 space-y-5">
               <div className="flex items-center gap-3">
                 <span
                   className={`rounded-full px-3 py-1 text-xs font-bold tracking-wide uppercase ${
                     recruitment.status === 'OPEN'
-                      ? 'bg-emerald-500/20 text-emerald-800'
+                      ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
                       : recruitment.status === 'COMING_SOON'
-                      ? 'bg-amber-500/20 text-amber-900'
-                      : 'bg-gray-200 text-gray-700'
+                      ? 'bg-blue-50 text-blue-700 border border-blue-200'
+                      : 'bg-soft-200 text-soft-500 border border-soft-300'
                   }`}
                 >
                   {recruitment.status === 'OPEN'
@@ -84,7 +82,7 @@ export default async function ContactJoinPage() {
                     : 'Pendaftaran Ditutup'}
                 </span>
                 {recruitment.period && (
-                  <span className="text-xs font-medium text-gray-500">
+                  <span className="text-xs font-medium text-soft-500">
                     Periode {recruitment.period}
                   </span>
                 )}
@@ -94,18 +92,18 @@ export default async function ContactJoinPage() {
                 Open Recruitment IMMAPA Telkom University
               </h2>
 
-              <p className="text-gray-600 leading-relaxed text-sm sm:text-base">
+              <p className="text-soft-600 leading-relaxed text-sm sm:text-base">
                 {recruitment.announcement}
               </p>
 
               {/* Requirements */}
               <div className="space-y-2.5 pt-2">
-                <p className="text-xs font-bold uppercase tracking-wider text-navy">
+                <p className="text-xs font-bold uppercase tracking-wider text-navy-muted">
                   Syarat & Ketentuan Pendaftaran:
                 </p>
                 {recruitment.requirements.map((req, i) => (
-                  <div key={i} className="flex items-start gap-2.5 text-xs sm:text-sm text-gray-700">
-                    <CheckCircle2 size={16} className="text-cenderawasih-pink shrink-0 mt-0.5" />
+                  <div key={i} className="flex items-start gap-2.5 text-xs sm:text-sm text-soft-600">
+                    <CheckCircle2 size={16} className="text-navy shrink-0 mt-0.5" />
                     <span>{req}</span>
                   </div>
                 ))}
@@ -118,34 +116,34 @@ export default async function ContactJoinPage() {
                     href={recruitment.registrationUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn-accent px-8 py-3 text-sm"
+                    className="btn-primary px-8 py-3 text-sm"
                   >
                     <span>Isi Formulir Pendaftaran</span>
                     <ExternalLink size={16} />
                   </a>
                 ) : (
-                  <div className="inline-flex items-center gap-2 rounded-xl bg-gray-100 px-5 py-3 text-xs font-semibold text-gray-600">
-                    <Calendar size={14} className="text-gray-500" />
+                  <div className="inline-flex items-center gap-2 rounded-xl bg-soft-200 border border-soft-300 px-5 py-3 text-xs font-semibold text-soft-600">
+                    <Calendar size={14} className="text-navy" />
                     <span>Informasi link formulir akan aktif saat pendaftaran resmi dibuka.</span>
                   </div>
                 )}
               </div>
             </div>
 
-            {/* Timeline Column */}
-            <div className="lg:col-span-4 rounded-2xl bg-accent-blue/30 p-6 space-y-4">
-              <h3 className="text-sm font-bold uppercase tracking-wider text-navy">
+            {/* Timeline */}
+            <div className="lg:col-span-4 rounded-2xl bg-soft-100 p-6 border border-soft-300 space-y-4">
+              <h3 className="text-xs font-bold uppercase tracking-wider text-navy">
                 Tahapan Seleksi & Welcoming
               </h3>
               <div className="space-y-3">
                 {recruitment.timeline.map((t, idx) => (
                   <div key={idx} className="flex items-start gap-3">
-                    <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-navy text-[10px] font-bold text-white mt-0.5">
+                    <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-navy text-[10px] font-bold text-white mt-0.5 shadow-sm">
                       {idx + 1}
                     </span>
                     <div>
                       <p className="text-xs font-bold text-navy">{t.stage}</p>
-                      <p className="text-[11px] text-gray-500">{t.date}</p>
+                      <p className="text-[11px] text-soft-500">{t.date}</p>
                     </div>
                   </div>
                 ))}
@@ -160,27 +158,27 @@ export default async function ContactJoinPage() {
             href={contact.instagram}
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-3xl border border-gray-100 bg-white p-7 shadow-xs hover:border-cenderawasih-pink hover:shadow-md transition-all space-y-3 group"
+            className="rounded-2xl border border-soft-300 bg-white p-7 shadow-card hover:shadow-card-hover hover:border-navy/20 transition-all space-y-3 group"
           >
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-cenderawasih-pink/10 text-cenderawasih-pink group-hover:bg-cenderawasih-pink group-hover:text-white transition-colors">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-navy/10 border border-navy/15 text-navy group-hover:bg-navy group-hover:text-white transition-colors">
               <Instagram size={24} />
             </div>
             <h3 className="text-lg font-bold text-navy">Instagram Resmi</h3>
-            <p className="text-xs text-gray-500">
+            <p className="text-xs text-soft-500">
               Update harian, dokumentasi foto kegiatan, dan informasi pendaftaran.
             </p>
-            <p className="text-xs font-bold text-cenderawasih-pink">@immapa_tu →</p>
+            <p className="text-xs font-bold text-navy group-hover:translate-x-0.5 transition-transform">@immapa_tu →</p>
           </a>
 
           <a
             href={`mailto:${contact.email}`}
-            className="rounded-3xl border border-gray-100 bg-white p-7 shadow-xs hover:border-navy hover:shadow-md transition-all space-y-3 group"
+            className="rounded-2xl border border-soft-300 bg-white p-7 shadow-card hover:shadow-card-hover hover:border-navy/20 transition-all space-y-3 group"
           >
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-navy/10 text-navy group-hover:bg-navy group-hover:text-white transition-colors">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-soft-200 border border-soft-300 text-soft-600 group-hover:bg-navy group-hover:text-white group-hover:border-navy transition-colors">
               <Mail size={24} />
             </div>
             <h3 className="text-lg font-bold text-navy">Email Korespondensi</h3>
-            <p className="text-xs text-gray-500">
+            <p className="text-xs text-soft-500">
               Surat menyurat resmi, proposal kerjasama, dan pertanyaan umum.
             </p>
             <p className="text-xs font-bold text-navy">{contact.email} →</p>
@@ -190,23 +188,23 @@ export default async function ContactJoinPage() {
             href={contact.youtube || 'https://www.youtube.com'}
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-3xl border border-gray-100 bg-white p-7 shadow-xs hover:border-red-500 hover:shadow-md transition-all space-y-3 group"
+            className="rounded-2xl border border-soft-300 bg-white p-7 shadow-card hover:shadow-card-hover hover:border-red-200 transition-all space-y-3 group"
           >
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-red-50 text-red-600 group-hover:bg-red-600 group-hover:text-white transition-colors">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-red-50 border border-red-200 text-red-500 group-hover:bg-red-600 group-hover:text-white group-hover:border-red-600 transition-colors">
               <Youtube size={24} />
             </div>
             <h3 className="text-lg font-bold text-navy">Kanal YouTube</h3>
-            <p className="text-xs text-gray-500">
+            <p className="text-xs text-soft-500">
               Video profil, pertunjukan tarian adat, dan dokumentasi festival.
             </p>
-            <p className="text-xs font-bold text-red-600">IMMAPA Telkom University →</p>
+            <p className="text-xs font-bold text-red-500">IMMAPA Telkom University →</p>
           </a>
         </div>
 
         {/* FAQ Section */}
-        <div className="rounded-3xl bg-accent-gray/50 border border-gray-100 p-8 sm:p-12 space-y-8">
+        <div className="rounded-2xl bg-white border border-soft-300 p-8 sm:p-12 space-y-8 shadow-card">
           <div className="text-center max-w-2xl mx-auto">
-            <span className="text-xs font-bold text-navy uppercase tracking-wider">
+            <span className="badge-navy mb-2">
               TANYA JAWAB UMUM
             </span>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-navy mt-1">
@@ -216,12 +214,12 @@ export default async function ContactJoinPage() {
 
           <div className="max-w-3xl mx-auto space-y-4">
             {FAQS.map((faq, i) => (
-              <div key={i} className="rounded-2xl border border-gray-100 bg-white p-6 shadow-xs space-y-2">
+              <div key={i} className="rounded-xl border border-soft-300 bg-soft-100 p-6 space-y-2 hover:border-navy/15 transition-colors">
                 <h4 className="text-base font-bold text-navy flex items-start gap-2.5">
-                  <HelpCircle size={18} className="text-cenderawasih-pink shrink-0 mt-0.5" />
+                  <HelpCircle size={18} className="text-navy shrink-0 mt-0.5" />
                   <span>{faq.q}</span>
                 </h4>
-                <p className="text-sm text-gray-600 pl-7 leading-relaxed">
+                <p className="text-sm text-soft-600 pl-7 leading-relaxed">
                   {faq.a}
                 </p>
               </div>

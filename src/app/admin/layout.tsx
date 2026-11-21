@@ -1,4 +1,3 @@
-import { redirect } from 'next/navigation';
 import { getAdminSession } from '@/lib/auth';
 import AdminSidebar from '@/components/admin/AdminSidebar';
 
@@ -9,24 +8,22 @@ export default async function AdminLayout({
 }) {
   const session = await getAdminSession();
 
-  // If no session, allow login page, otherwise redirect to login
-  // Note: Next.js subroute matching or checking headers
   return (
-    <div className="flex min-h-screen bg-accent-gray">
+    <div className="flex min-h-screen bg-midnight-950 text-white">
       <AdminSidebar />
-      <div className="flex-1 flex flex-col min-w-0">
-        <header className="h-16 bg-white border-b border-gray-200/80 px-8 flex items-center justify-between">
+      <div className="flex-1 flex flex-col min-w-0 bg-midnight-950">
+        <header className="h-16 bg-midnight-900/90 backdrop-blur-md border-b border-white/10 px-8 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <span className="text-xs font-semibold text-gray-500">Mode:</span>
-            <span className="rounded-md bg-emerald-50 text-emerald-700 px-2 py-0.5 text-xs font-bold border border-emerald-200">
+            <span className="text-xs font-semibold text-gray-400">Mode:</span>
+            <span className="rounded-full bg-crimson/20 text-crimson-light px-2.5 py-0.5 text-xs font-bold border border-crimson/30">
               Pengurus Terotorisasi
             </span>
           </div>
-          <div className="text-xs text-gray-600 font-medium">
+          <div className="text-xs text-gray-300 font-semibold">
             admin@immapa.telkomuniversity.ac.id
           </div>
         </header>
-        <main className="flex-1 p-6 sm:p-8 overflow-y-auto">
+        <main className="flex-1 p-6 sm:p-8 overflow-y-auto bg-midnight-950 text-white">
           {children}
         </main>
       </div>

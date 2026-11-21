@@ -30,7 +30,6 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close mobile menu on page transition
   useEffect(() => {
     setIsOpen(false);
   }, [pathname]);
@@ -39,14 +38,14 @@ export default function Navbar() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? 'bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100 py-3'
-          : 'bg-white/90 backdrop-blur-sm border-b border-gray-100/60 py-4'
+          ? 'bg-white/95 backdrop-blur-xl shadow-card border-b border-soft-300 py-3'
+          : 'bg-white/80 backdrop-blur-md border-b border-soft-200 py-4'
       }`}
     >
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Brand / Logo */}
-        <Link href="/" className="flex items-center gap-3 group">
-          <div className="relative h-11 w-11 shrink-0 overflow-hidden rounded-xl bg-navy/5 p-1 transition-transform duration-300 group-hover:scale-105">
+        <Link href="/" className="flex items-center gap-3.5 group cursor-pointer">
+          <div className="relative h-11 w-11 shrink-0 overflow-hidden rounded-xl bg-soft-200 p-1 border border-soft-300 transition-transform duration-300 group-hover:scale-105 group-hover:border-navy/30">
             <Image
               src="/logos/logo-immapa.png"
               alt="Logo Resmi IMMAPA Telkom University"
@@ -57,36 +56,36 @@ export default function Navbar() {
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <span className="text-lg font-bold tracking-tight text-navy">
+              <span className="text-lg font-extrabold tracking-tight text-navy group-hover:text-navy-light transition-colors">
                 IMMAPA
               </span>
-              <span className="rounded-full bg-cenderawasih-pink/10 px-2 py-0.5 text-[10px] font-semibold text-cenderawasih-pink">
+              <span className="rounded-full bg-navy/10 border border-navy/15 px-2 py-0.5 text-[10px] font-bold text-navy">
                 Tel-U
               </span>
             </div>
-            <p className="text-[11px] text-gray-500 font-medium hidden sm:block">
+            <p className="text-[11px] text-soft-600 font-medium hidden sm:block">
               Maluku, Papua & NTT
             </p>
           </div>
         </Link>
 
         {/* Desktop Navigation Links */}
-        <div className="hidden lg:flex items-center gap-1">
+        <div className="hidden lg:flex items-center gap-1.5">
           {NAV_LINKS.map((link) => {
             const isActive = pathname === link.href;
             return (
               <Link
                 key={link.href}
                 href={link.href}
-                className={`relative px-3.5 py-2 text-sm font-medium transition-colors rounded-lg ${
+                className={`relative px-3.5 py-2 text-sm font-medium transition-all rounded-xl ${
                   isActive
-                    ? 'text-navy font-semibold bg-accent-blue/50'
-                    : 'text-gray-600 hover:text-navy hover:bg-gray-50'
+                    ? 'text-navy font-bold bg-navy/5'
+                    : 'text-soft-600 hover:text-navy hover:bg-soft-200'
                 }`}
               >
                 {link.label}
                 {isActive && (
-                  <span className="absolute bottom-0 left-1/2 h-0.5 w-6 -translate-x-1/2 rounded-full bg-cenderawasih-pink" />
+                  <span className="absolute bottom-1 left-1/2 h-0.5 w-6 -translate-x-1/2 rounded-full bg-navy" />
                 )}
               </Link>
             );
@@ -97,15 +96,15 @@ export default function Navbar() {
         <div className="hidden sm:flex items-center gap-3">
           <Link
             href="/admin"
-            className="flex items-center gap-1.5 text-xs text-gray-500 hover:text-navy font-medium px-2 py-1 rounded-md hover:bg-gray-100 transition-colors"
+            className="flex items-center gap-1.5 text-xs text-soft-600 hover:text-navy font-medium px-3 py-1.5 rounded-lg hover:bg-soft-200 transition-colors cursor-pointer"
             title="Portal Administrator"
           >
-            <ShieldCheck size={14} className="text-gray-400" />
+            <ShieldCheck size={14} className="text-navy" />
             <span>Admin</span>
           </Link>
           <Link
             href="/contact-join"
-            className="inline-flex items-center gap-2 rounded-xl bg-navy px-4 py-2.5 text-xs font-semibold text-white shadow-sm transition-all duration-200 hover:bg-navy-800 hover:-translate-y-0.5"
+            className="btn-primary text-xs py-2.5 px-4"
           >
             <span>Gabung Kami</span>
             <ArrowRight size={14} />
@@ -116,14 +115,14 @@ export default function Navbar() {
         <div className="flex items-center gap-2 lg:hidden">
           <Link
             href="/admin"
-            className="p-2 text-gray-500 hover:text-navy"
+            className="p-2 text-soft-600 hover:text-navy"
             aria-label="Admin Portal"
           >
-            <ShieldCheck size={18} />
+            <ShieldCheck size={18} className="text-navy" />
           </Link>
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="rounded-lg p-2 text-gray-700 hover:bg-gray-100 focus:outline-none"
+            className="rounded-xl p-2 text-soft-600 hover:bg-soft-200 hover:text-navy focus:outline-none cursor-pointer"
             aria-label="Buka menu navigasi"
             aria-expanded={isOpen}
           >
@@ -134,25 +133,25 @@ export default function Navbar() {
 
       {/* Mobile Slide-down Menu */}
       {isOpen && (
-        <div className="lg:hidden border-b border-gray-100 bg-white px-4 pt-2 pb-6 shadow-xl animate-in slide-in-from-top-2 duration-200">
-          <div className="flex flex-col gap-1">
+        <div className="lg:hidden border-b border-soft-300 bg-white px-4 pt-3 pb-6 shadow-elevated animate-in slide-in-from-top-2 duration-200">
+          <div className="flex flex-col gap-1.5">
             {NAV_LINKS.map((link) => {
               const isActive = pathname === link.href;
               return (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`rounded-lg px-4 py-3 text-sm font-medium transition-colors ${
+                  className={`rounded-xl px-4 py-3 text-sm font-semibold transition-colors ${
                     isActive
-                      ? 'bg-accent-blue/60 text-navy font-semibold'
-                      : 'text-gray-600 hover:bg-gray-50 hover:text-navy'
+                      ? 'bg-navy/5 text-navy border-l-4 border-navy'
+                      : 'text-soft-600 hover:bg-soft-200 hover:text-navy'
                   }`}
                 >
                   {link.label}
                 </Link>
               );
             })}
-            <div className="mt-3 pt-3 border-t border-gray-100">
+            <div className="mt-4 pt-4 border-t border-soft-300">
               <Link
                 href="/contact-join"
                 className="w-full justify-center btn-primary py-3 text-sm"

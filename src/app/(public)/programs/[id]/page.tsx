@@ -10,7 +10,6 @@ import {
   Target,
   ArrowLeft,
   ArrowRight,
-  Sparkles,
   ShieldCheck,
 } from 'lucide-react';
 
@@ -43,30 +42,32 @@ export default async function ProgramDetailPage({ params }: ProgramDetailProps) 
     .slice(0, 2);
 
   return (
-    <div className="py-12 sm:py-16">
+    <div className="py-16 sm:py-20 bg-soft-100 text-navy">
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 space-y-12">
         {/* Back Link */}
         <Link
           href="/programs"
-          className="inline-flex items-center gap-2 text-sm font-semibold text-gray-500 hover:text-navy transition-colors"
+          className="inline-flex items-center gap-2 text-sm font-semibold text-soft-500 hover:text-navy transition-colors"
         >
           <ArrowLeft size={16} />
           <span>Kembali ke Daftar Program</span>
         </Link>
 
         {/* Hero Header */}
-        <div className="rounded-3xl bg-navy p-8 sm:p-12 text-white space-y-6 shadow-xl shadow-navy/10">
-          <div className="flex flex-wrap items-center gap-3">
-            <span className="rounded-full bg-white/20 backdrop-blur-md px-3.5 py-1 text-xs font-semibold text-white">
+        <div className="rounded-2xl bg-white border border-soft-300 p-8 sm:p-12 text-navy space-y-6 shadow-elevated relative overflow-hidden">
+          <div className="pointer-events-none absolute -right-20 -bottom-20 h-64 w-64 rounded-full bg-navy/5 blur-[100px]" />
+
+          <div className="flex flex-wrap items-center gap-3 relative z-10">
+            <span className="rounded-full bg-soft-200 backdrop-blur-md px-3.5 py-1 text-xs font-semibold text-navy border border-soft-300">
               {program.category}
             </span>
             <span
-              className={`rounded-full px-3 py-1 text-xs font-semibold ${
+              className={`rounded-full px-3 py-1 text-xs font-bold ${
                 program.status === 'COMPLETED'
-                  ? 'bg-emerald-500/20 text-emerald-300'
+                  ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
                   : program.status === 'ONGOING'
-                  ? 'bg-amber-500/20 text-amber-300'
-                  : 'bg-blue-500/20 text-blue-200'
+                  ? 'bg-amber-50 text-amber-700 border border-amber-200'
+                  : 'bg-blue-50 text-blue-700 border border-blue-200'
               }`}
             >
               {program.status === 'COMPLETED'
@@ -77,25 +78,25 @@ export default async function ProgramDetailPage({ params }: ProgramDetailProps) 
             </span>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-navy tracking-tight relative z-10">
             {program.title}
           </h1>
 
-          <div className="flex flex-wrap items-center gap-6 text-sm text-gray-300 pt-2 border-t border-navy-700/60">
+          <div className="flex flex-wrap items-center gap-6 text-sm text-soft-600 pt-3 border-t border-soft-300 relative z-10">
             {program.activityDate && (
               <div className="flex items-center gap-2">
-                <Calendar size={16} className="text-cenderawasih-pink" />
+                <Calendar size={16} className="text-navy" />
                 <span>{formatDate(program.activityDate)}</span>
               </div>
             )}
             {program.location && (
               <div className="flex items-center gap-2">
-                <MapPin size={16} className="text-cenderawasih-gold" />
+                <MapPin size={16} className="text-soft-600" />
                 <span>{program.location}</span>
               </div>
             )}
             <div className="flex items-center gap-2">
-              <Users size={16} className="text-white" />
+              <Users size={16} className="text-navy" />
               <span>{program.responsibleDivision}</span>
             </div>
           </div>
@@ -105,43 +106,43 @@ export default async function ProgramDetailPage({ params }: ProgramDetailProps) 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
           <div className="lg:col-span-8 space-y-8">
             <section className="space-y-4">
-              <h2 className="text-2xl font-bold text-navy">Tentang Kegiatan</h2>
-              <p className="text-base text-gray-700 leading-relaxed whitespace-pre-line">
+              <h2 className="text-2xl font-extrabold text-navy">Tentang Kegiatan</h2>
+              <p className="text-base text-soft-600 leading-relaxed whitespace-pre-line">
                 {program.description}
               </p>
             </section>
 
-            <section className="rounded-2xl border border-gray-100 bg-accent-gray/50 p-6 space-y-3">
-              <div className="flex items-center gap-2 text-cenderawasih-pink font-bold text-sm uppercase tracking-wide">
-                <Target size={16} />
+            <section className="rounded-2xl border border-soft-300 bg-white p-6 space-y-3 shadow-card">
+              <div className="flex items-center gap-2 text-navy font-bold text-sm uppercase tracking-wide">
+                <Target size={16} className="text-navy" />
                 <span>Tujuan & Sasaran Kegiatan</span>
               </div>
-              <p className="text-sm text-gray-700 leading-relaxed">
+              <p className="text-sm text-soft-700 leading-relaxed">
                 {program.objective}
               </p>
             </section>
           </div>
 
-          {/* Sidebar Info */}
+          {/* Sidebar */}
           <div className="lg:col-span-4 space-y-6">
-            <div className="rounded-2xl border border-gray-100 bg-white p-6 shadow-xs space-y-4">
-              <h3 className="text-sm font-bold uppercase tracking-wider text-navy">
+            <div className="rounded-2xl border border-soft-300 bg-white p-6 shadow-card space-y-4">
+              <h3 className="text-xs font-bold uppercase tracking-wider text-soft-500">
                 Penanggung Jawab
               </h3>
               <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent-blue text-navy">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-navy/10 border border-navy/15 text-navy">
                   <ShieldCheck size={20} />
                 </div>
                 <div>
                   <p className="text-sm font-bold text-navy">{program.responsibleDivision}</p>
-                  <p className="text-xs text-gray-500">IMMAPA Telkom University</p>
+                  <p className="text-xs text-soft-500">IMMAPA Telkom University</p>
                 </div>
               </div>
             </div>
 
-            <div className="rounded-2xl bg-accent-blue/30 p-6 text-center space-y-3">
+            <div className="rounded-2xl border border-soft-300 bg-soft-100 p-6 text-center space-y-3">
               <p className="text-sm font-bold text-navy">Ingin Bermitra di Acara Ini?</p>
-              <p className="text-xs text-gray-600">
+              <p className="text-xs text-soft-500">
                 Kami terbuka untuk kolaborasi sponsor, media partner, dan komunitas.
               </p>
               <Link href="/collaboration" className="btn-primary w-full text-xs py-2.5">
@@ -153,24 +154,24 @@ export default async function ProgramDetailPage({ params }: ProgramDetailProps) 
 
         {/* Related Programs */}
         {relatedPrograms.length > 0 && (
-          <div className="pt-10 border-t border-gray-100 space-y-6">
+          <div className="pt-10 border-t border-soft-300 space-y-6">
             <h3 className="text-xl font-bold text-navy">Program Terkait</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {relatedPrograms.map((rel) => (
                 <Link
                   key={rel.id}
                   href={`/programs/${rel.slug}`}
-                  className="rounded-2xl border border-gray-100 bg-white p-5 shadow-xs hover:border-cenderawasih-pink/30 hover:shadow-md transition-all flex justify-between items-center group"
+                  className="rounded-2xl border border-soft-300 bg-white p-5 shadow-card hover:border-navy/20 hover:shadow-card-hover transition-all flex justify-between items-center group"
                 >
                   <div>
-                    <span className="text-xs font-semibold text-cenderawasih-pink">
+                    <span className="text-xs font-semibold text-navy-muted">
                       {rel.category}
                     </span>
-                    <h4 className="text-base font-bold text-navy mt-1 group-hover:text-cenderawasih-pink transition-colors">
+                    <h4 className="text-base font-bold text-navy mt-1 group-hover:text-navy-light transition-colors">
                       {rel.title}
                     </h4>
                   </div>
-                  <ArrowRight size={18} className="text-gray-400 group-hover:text-cenderawasih-pink group-hover:translate-x-1 transition-all" />
+                  <ArrowRight size={18} className="text-soft-500 group-hover:text-navy group-hover:translate-x-1 transition-all" />
                 </Link>
               ))}
             </div>

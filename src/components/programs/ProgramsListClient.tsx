@@ -37,35 +37,35 @@ export default function ProgramsListClient({ initialPrograms }: ProgramsListClie
   return (
     <div className="space-y-8">
       {/* Search and Filters Bar */}
-      <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-xs space-y-4">
+      <div className="rounded-2xl border border-soft-300 bg-white p-6 shadow-card space-y-5">
         {/* Search input */}
         <div className="relative">
-          <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
+          <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-soft-500" />
           <input
             type="text"
             placeholder="Cari program kerja, festival, atau kegiatan..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full rounded-xl border border-gray-200 bg-gray-50/50 pl-11 pr-4 py-2.5 text-sm text-navy placeholder:text-gray-400 focus:border-navy focus:bg-white focus:outline-none transition-colors"
+            className="w-full rounded-xl border border-soft-300 bg-soft-100 pl-11 pr-4 py-3 text-sm text-navy placeholder:text-soft-500 focus:border-navy focus:outline-none focus:ring-1 focus:ring-navy/20 transition-colors"
           />
         </div>
 
         {/* Filter Pills */}
-        <div className="flex flex-wrap items-center justify-between gap-4 pt-2 border-t border-gray-100">
+        <div className="flex flex-wrap items-center justify-between gap-4 pt-3 border-t border-soft-300">
           {/* Category Filters */}
-          <div className="flex flex-wrap items-center gap-1.5">
-            <span className="text-xs font-semibold text-gray-400 mr-1 flex items-center gap-1">
-              <Filter size={12} />
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="text-xs font-bold text-soft-500 mr-1 flex items-center gap-1">
+              <Filter size={12} className="text-navy" />
               Kategori:
             </span>
             {CATEGORIES.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setSelectedCategory(cat)}
-                className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition-colors ${
+                className={`rounded-xl px-3.5 py-1.5 text-xs font-bold transition-all cursor-pointer ${
                   selectedCategory === cat
-                    ? 'bg-navy text-white'
-                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                    ? 'bg-navy text-white shadow-navy-glow'
+                    : 'bg-soft-200 text-soft-600 hover:bg-soft-300 hover:text-navy'
                 }`}
               >
                 {cat === 'ALL' ? 'Semua' : cat}
@@ -74,16 +74,16 @@ export default function ProgramsListClient({ initialPrograms }: ProgramsListClie
           </div>
 
           {/* Status Filters */}
-          <div className="flex items-center gap-1.5">
-            <span className="text-xs font-semibold text-gray-400 mr-1">Status:</span>
+          <div className="flex items-center gap-2">
+            <span className="text-xs font-bold text-soft-500 mr-1">Status:</span>
             {STATUSES.map((st) => (
               <button
                 key={st}
                 onClick={() => setSelectedStatus(st)}
-                className={`rounded-lg px-2.5 py-1 text-xs font-semibold transition-colors ${
+                className={`rounded-xl px-3 py-1 text-xs font-bold transition-all cursor-pointer ${
                   selectedStatus === st
-                    ? 'bg-cenderawasih-pink text-white'
-                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                    ? 'bg-navy text-white shadow-sm'
+                    : 'bg-soft-200 text-soft-600 hover:bg-soft-300 hover:text-navy'
                 }`}
               >
                 {st === 'ALL' ? 'Semua' : st === 'UPCOMING' ? 'Mendatang' : st === 'ONGOING' ? 'Berjalan' : 'Terlaksana'}
@@ -99,21 +99,21 @@ export default function ProgramsListClient({ initialPrograms }: ProgramsListClie
           {filteredPrograms.map((prog) => (
             <article
               key={prog.id}
-              className="group flex flex-col rounded-3xl border border-gray-100 bg-white overflow-hidden shadow-xs hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+              className="group flex flex-col rounded-2xl border border-soft-300 bg-white overflow-hidden shadow-card transition-all duration-300 hover:shadow-card-hover hover:border-navy/20 hover:-translate-y-1.5"
             >
-              {/* Category banner / Header */}
-              <div className="relative h-44 bg-gradient-to-br from-navy to-navy-800 p-6 flex flex-col justify-between text-white">
+              {/* Category banner */}
+              <div className="relative h-44 bg-gradient-to-br from-navy to-navy-mid p-6 flex flex-col justify-between text-white">
                 <div className="flex items-center justify-between">
-                  <span className="rounded-full bg-white/20 backdrop-blur-md px-3 py-1 text-xs font-semibold text-white">
+                  <span className="rounded-full bg-white/15 backdrop-blur-md px-3 py-1 text-xs font-semibold text-white border border-white/20">
                     {prog.category}
                   </span>
                   <span
-                    className={`rounded-full px-2.5 py-0.5 text-[11px] font-semibold ${
+                    className={`rounded-full px-2.5 py-0.5 text-[11px] font-bold ${
                       prog.status === 'COMPLETED'
-                        ? 'bg-emerald-500/20 text-emerald-300'
+                        ? 'bg-emerald-500/20 text-emerald-200 border border-emerald-500/30'
                         : prog.status === 'ONGOING'
-                        ? 'bg-amber-500/20 text-amber-300'
-                        : 'bg-blue-500/20 text-blue-200'
+                        ? 'bg-amber-500/20 text-amber-200 border border-amber-500/30'
+                        : 'bg-white/20 text-white border border-white/30'
                     }`}
                   >
                     {prog.status === 'COMPLETED'
@@ -123,27 +123,27 @@ export default function ProgramsListClient({ initialPrograms }: ProgramsListClie
                       : 'Mendatang'}
                   </span>
                 </div>
-                <h3 className="text-lg font-bold text-white group-hover:text-cenderawasih-gold transition-colors">
+                <h3 className="text-lg font-extrabold text-white leading-snug">
                   {prog.title}
                 </h3>
               </div>
 
               {/* Body */}
-              <div className="flex-1 p-6 flex flex-col justify-between space-y-4">
-                <p className="text-sm text-gray-600 line-clamp-3 leading-relaxed">
+              <div className="flex-1 p-6 flex flex-col justify-between space-y-4 bg-white">
+                <p className="text-sm text-soft-600 line-clamp-3 leading-relaxed">
                   {prog.description}
                 </p>
 
-                <div className="space-y-1.5 pt-2 border-t border-gray-100 text-xs text-gray-500">
+                <div className="space-y-1.5 pt-3 border-t border-soft-300 text-xs text-soft-500">
                   {prog.activityDate && (
                     <div className="flex items-center gap-2">
-                      <Calendar size={13} className="text-cenderawasih-pink" />
+                      <Calendar size={13} className="text-navy" />
                       <span>{formatDate(prog.activityDate)}</span>
                     </div>
                   )}
                   {prog.location && (
                     <div className="flex items-center gap-2">
-                      <MapPin size={13} className="text-cenderawasih-gold" />
+                      <MapPin size={13} className="text-soft-600" />
                       <span className="truncate">{prog.location}</span>
                     </div>
                   )}
@@ -151,7 +151,7 @@ export default function ProgramsListClient({ initialPrograms }: ProgramsListClie
 
                 <Link
                   href={`/programs/${prog.slug}`}
-                  className="mt-3 inline-flex items-center justify-center gap-2 rounded-xl bg-accent-blue/50 py-2.5 text-xs font-semibold text-navy hover:bg-navy hover:text-white transition-all duration-200"
+                  className="mt-3 inline-flex items-center justify-center gap-2 rounded-xl bg-soft-200 border border-soft-300 py-2.5 text-xs font-bold text-navy hover:bg-navy hover:text-white hover:border-navy transition-all duration-200"
                 >
                   <span>Lihat Selengkapnya</span>
                   <ArrowRight size={14} />
@@ -161,15 +161,15 @@ export default function ProgramsListClient({ initialPrograms }: ProgramsListClie
           ))}
         </div>
       ) : (
-        <div className="rounded-3xl border border-gray-200 bg-white p-12 text-center text-gray-500">
-          <p className="text-base font-semibold">Tidak ada program yang sesuai kriteria pencarian.</p>
+        <div className="rounded-2xl border border-soft-300 bg-white p-12 text-center text-soft-500">
+          <p className="text-base font-semibold text-navy">Tidak ada program yang sesuai kriteria pencarian.</p>
           <button
             onClick={() => {
               setSearch('');
               setSelectedCategory('ALL');
               setSelectedStatus('ALL');
             }}
-            className="mt-4 text-sm font-semibold text-cenderawasih-pink hover:underline"
+            className="mt-4 text-sm font-bold text-navy hover:underline cursor-pointer"
           >
             Reset Filter
           </button>
